@@ -10,7 +10,7 @@ export function DashboardShowcase() {
 
       <div className="mx-auto mt-12 max-w-5xl overflow-hidden border border-rule bg-ink">
         <img
-          src="/assets/dashboard-network.png"
+          src="/assets/dashboard-network-v2.png"
           alt="The GLT client dashboard's Network page, showing audit photos captured at every hub."
           className="w-full"
           loading="lazy"
