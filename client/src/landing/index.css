@@ -1,0 +1,132 @@
+@import 'tailwindcss';
+
+/*
+ * Monochrome editorial system — ink on paper, no colour accent. Hairline
+ * rules replace borders-as-chrome, grayscale photo treatment, huge tracked
+ * uppercase display type with a Playfair italic accent word inside headlines.
+ */
+@theme {
+  --color-ink: #000000;
+  --color-paper: #fcf8fa;
+  --color-paper-dark: #f6f3f5;
+  --color-rule: #c6c6cd;
+  --color-muted: #5c5f61;
+  --color-label: #7c839b;
+  --color-navy: #0b1c30;
+
+  --font-sans: 'Poppins', 'Helvetica Neue', Arial, sans-serif;
+  --font-serif: 'Playfair Display', Georgia, serif;
+}
+
+@layer base {
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 5rem;
+  }
+
+  body {
+    margin: 0;
+    background: var(--color-paper);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    font-size: 16px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  ::-webkit-scrollbar {
+    width: 0;
+    height: 0;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-ink);
+    outline-offset: 3px;
+  }
+
+  ::selection {
+    background: var(--color-ink);
+    color: var(--color-paper);
+  }
+}
+
+@layer components {
+  .wrap {
+    width: 100%;
+    max-width: 1400px;
+    margin-inline: auto;
+    padding-inline: 2.5rem;
+  }
+
+  .img-mono {
+    filter: grayscale(100%);
+  }
+
+  .accent-serif {
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-weight: 500;
+  }
+
+  input[type='range'] {
+    -webkit-appearance: none;
+    appearance: none;
+    height: 2px;
+    background: var(--color-rule);
+    outline: none;
+  }
+  input[type='range']::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background: var(--color-ink);
+    cursor: pointer;
+  }
+  input[type='range']::-moz-range-thumb {
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background: var(--color-ink);
+    border: none;
+    cursor: pointer;
+  }
+}
+
+.leaflet-container {
+  background: var(--color-paper-dark);
+  font-family: var(--font-sans);
+}
+.leaflet-control-attribution {
+  font-size: 9px !important;
+  background: rgba(252, 248, 250, 0.75) !important;
+  color: var(--color-label) !important;
+}
+
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+.marquee {
+  animation: marquee 28s linear infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  .marquee {
+    animation: none;
+  }
+}
