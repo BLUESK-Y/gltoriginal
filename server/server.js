@@ -31,7 +31,21 @@ app.use("/api/site", siteRouter);
 // Render web service instead of a separate static site + API.
 if (isProd) {
   const clientDist = path.resolve(__dirname, "../client/dist");
-  app.use(express.static(clientDist, { maxAge: "1h" }));
+  // Vite content-hashes its own JS/CSS output (e.g. index-Q6Oil2d8.js), so
+  // those are safe to cache hard — a filename change is guaranteed whenever
+  // the content changes. Everything else under dist/assets is copied
+  // straight from client/public/assets with its original filename (site
+  // images, swapped in place when we update them), so those get a short
+  // cache instead of staying stale for visitors for up to an hour.
+  const HASHED_BUNDLE = /-[\w-]{8}\.(js|css)$/;
+  app.use(
+    express.static(clientDist, {
+      setHeaders(res, filePath) {
+        const maxAge = HASHED_BUNDLE.test(filePath) ? 3600 : 300;
+        res.set("Cache-Control", `public, max-age=${maxAge}`);
+      },
+    }),
+  );
   app.get(/^(?!\/api).*/, (req, res) => {
     // The shell names the hashed bundles, so it must never be cached.
     res.set("Cache-Control", "no-cache");
