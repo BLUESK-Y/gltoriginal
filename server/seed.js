@@ -10,8 +10,10 @@ import Client from "./models/Client.js";
 import Hub from "./models/Hub.js";
 import SiteHub from "./models/site/Hub.js";
 
-const CLIENT_EMAIL = "client@flashpopfoods.com";
-const CLIENT_PASSWORD = "flashpop2026";
+const CLIENTS = [
+  { email: "client@flashpopfoods.com", password: "flashpop2026", name: CAMPAIGN.client },
+  { email: "client@gltdemo.com", password: "gltdemo2026", name: "GLT Demo" },
+];
 
 async function run() {
   await connectDB();
@@ -25,10 +27,12 @@ async function run() {
   await SiteHub.insertMany(siteHubsSeed);
   console.log(`Seeded ${siteHubsSeed.length} site hubs (landing page map).`);
 
-  const passwordHash = await bcrypt.hash(CLIENT_PASSWORD, 10);
   await Client.deleteMany({});
-  await Client.create({ email: CLIENT_EMAIL, passwordHash, name: CAMPAIGN.client });
-  console.log(`Seeded client login: ${CLIENT_EMAIL} / ${CLIENT_PASSWORD}`);
+  for (const { email, password, name } of CLIENTS) {
+    const passwordHash = await bcrypt.hash(password, 10);
+    await Client.create({ email, passwordHash, name });
+    console.log(`Seeded client login: ${email} / ${password}`);
+  }
 
   await mongoose.disconnect();
 }
