@@ -195,11 +195,11 @@ function NetworkPanel() {
       <MapContainer
         center={CENTER}
         zoom={12}
-        zoomControl={false}
+        zoomControl={true}
         dragging={false}
-        scrollWheelZoom={false}
-        doubleClickZoom={false}
-        touchZoom={false}
+        scrollWheelZoom={true}
+        doubleClickZoom={true}
+        touchZoom={true}
         boxZoom={false}
         keyboard={false}
         className="img-mono h-full w-full"
