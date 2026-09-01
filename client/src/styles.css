@@ -116,6 +116,9 @@ label.lbl{display:block;font-size:11px;letter-spacing:.1em;text-transform:upperc
 .maprow{display:grid;grid-template-columns:1fr 300px;gap:16px}
 .mapwrap{position:relative;border-radius:8px;overflow:hidden;background:#0B0B0F;border:1px solid var(--line-soft)}
 .mapwrap .leaflet-container{background:var(--panel)}
+.pan-btn{position:absolute;left:12px;top:82px;z-index:450;display:grid;place-items:center;width:30px;height:30px;border-radius:2px;border:2px solid rgba(0,0,0,.6);background:#fff;color:#000;box-shadow:0 4px 6px -1px rgba(0,0,0,.1),0 2px 4px -2px rgba(0,0,0,.1);cursor:pointer;transition:background-color .12s,border-color .12s}
+.pan-btn:hover{background:rgba(0,0,0,.1)}
+.pan-btn.on{background:#000;border-color:#000;color:#fff}
 .viewtoggle{display:flex;gap:6px}
 .viewtoggle button{padding:6px 13px;font-size:12px;font-weight:600;color:var(--muted);border:1px solid var(--line);border-radius:7px;transition:border-color .12s,color .12s,background .12s}
 .viewtoggle button:hover{color:var(--text);border-color:#3A3A45}

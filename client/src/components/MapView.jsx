@@ -77,10 +77,7 @@ export default function MapView({ hubs, selectedHubId, onSelect }) {
         aria-pressed={panEnabled}
         aria-label={panEnabled ? 'Turn off map panning' : 'Turn on map panning to reposition it'}
         title={panEnabled ? 'Panning on' : 'Pan the map'}
-        className={`absolute left-[12px] z-[450] grid size-[30px] place-items-center rounded-[2px] border-2 shadow-md transition-colors ${
-          panEnabled ? 'border-black bg-black text-white' : 'border-black/60 bg-white text-ink hover:bg-black/10'
-        }`}
-        style={{ top: 82 }}
+        className={'pan-btn' + (panEnabled ? ' on' : '')}
       >
         <Move size={18} strokeWidth={2.5} />
       </button>
