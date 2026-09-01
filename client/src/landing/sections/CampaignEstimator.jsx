@@ -332,7 +332,7 @@ export function CampaignEstimator() {
                   <div>
                     <div className="flex items-center justify-between border-b border-white/10 py-1.5 text-sm">
                       <span className="text-[11px] tracking-[0.04em] text-white/60">
-                        {quote.hubs} hubs × {inr(quote.ratePerHub)}
+                        {quote.hubs} hubs × {quote.days} days × {inr(quote.ratePerDay)}/day
                       </span>
                       <span className="text-[12px] font-bold">{inr(quote.base)}</span>
                     </div>
