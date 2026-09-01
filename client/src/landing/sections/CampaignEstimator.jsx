@@ -314,26 +314,46 @@ export function CampaignEstimator() {
                 <p className="animate-pulse text-[11px] tracking-[1.2px] text-white/50 uppercase">Calculating…</p>
               ) : (
                 <div className={`transition-opacity duration-200 ${pending ? 'opacity-50' : 'opacity-100'}`}>
-                  <div className="rounded-lg border border-white/10 bg-white/5 p-3">
-                    <p className="text-[10px] tracking-[0.18em] text-white/50 uppercase">Estimated total</p>
-                    <p className="accent-serif mt-0.5 text-[26px] leading-tight text-paper">{inr(quote.total)}</p>
-                    <p className="mt-0.5 text-[10px] text-white/40">Excludes GST</p>
-                  </div>
-
-                  <div className="mt-2">
+                  <div>
                     {[
                       ['Location', place],
                       ['Hubs', quote.hubs],
                       ['Panels', quote.panels],
                       ['Duration', `${quote.days} days`],
-                      ['Rate', `${inr(quote.ratePerDay)}/day`],
-                      ['Install fee', inr(quote.installFee)],
                     ].map(([label, value]) => (
                       <div key={label} className="flex items-center justify-between border-b border-white/10 py-1.5 text-sm">
                         <span className="text-[11px] tracking-[0.04em] text-white/50 uppercase">{label}</span>
                         <span className="text-[12px] font-bold">{value}</span>
                       </div>
                     ))}
+                  </div>
+
+                  <p className="mt-3 mb-1 text-[10px] tracking-[0.18em] text-white/50 uppercase">How this is calculated</p>
+                  <div>
+                    <div className="flex items-center justify-between border-b border-white/10 py-1.5 text-sm">
+                      <span className="text-[11px] tracking-[0.04em] text-white/60">
+                        {quote.hubs} hubs × {inr(quote.ratePerHub)}
+                      </span>
+                      <span className="text-[12px] font-bold">{inr(quote.base)}</span>
+                    </div>
+                    {quote.surcharge > 0 && (
+                      <div className="flex items-center justify-between border-b border-white/10 py-1.5 text-sm">
+                        <span className="text-[11px] tracking-[0.04em] text-white/60">+ {quote.surchargePct}% surcharge</span>
+                        <span className="text-[12px] font-bold">{inr(quote.surcharge)}</span>
+                      </div>
+                    )}
+                    <div className="flex items-center justify-between border-b border-white/10 py-1.5 text-sm">
+                      <span className="text-[11px] tracking-[0.04em] text-white/60">
+                        + Install fee ({quote.hubs} × {inr(rateCard.installFeePerHub)})
+                      </span>
+                      <span className="text-[12px] font-bold">{inr(quote.installFee)}</span>
+                    </div>
+                  </div>
+
+                  <div className="mt-3 rounded-lg border border-white/10 bg-white/5 p-3">
+                    <p className="text-[10px] tracking-[0.18em] text-white/50 uppercase">Estimated total</p>
+                    <p className="accent-serif mt-0.5 text-[26px] leading-tight text-paper">{inr(quote.total)}</p>
+                    <p className="mt-0.5 text-[10px] text-white/40">Excludes GST</p>
                   </div>
 
                   <ul className="mt-2 space-y-1">
