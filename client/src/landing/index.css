@@ -110,6 +110,11 @@
   color: var(--color-label) !important;
 }
 
+/* Clears the "Our network" label overlaid on top of this one map. */
+.network-map .leaflet-top.leaflet-left {
+  margin-top: 52px;
+}
+
 @keyframes marquee {
   from {
     transform: translateX(0);

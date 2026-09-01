@@ -1,6 +1,7 @@
 import 'leaflet/dist/leaflet.css';
 
 import L from 'leaflet';
+import { Move } from 'lucide-react';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { Marker, MapContainer, TileLayer, useMap } from 'react-leaflet';
 
@@ -97,6 +98,15 @@ function PositionTracker({ hubs, onPositions }) {
   return null;
 }
 
+function DragToggle({ enabled }) {
+  const map = useMap();
+  useEffect(() => {
+    if (enabled) map.dragging.enable();
+    else map.dragging.disable();
+  }, [enabled, map]);
+  return null;
+}
+
 function FitToHubs({ hubs }) {
   const map = useMap();
   useEffect(() => {
@@ -129,6 +139,7 @@ function NetworkPanel() {
   const [activated, setActivated] = useState(false);
   const [visibleHubId, setVisibleHubId] = useState(null);
   const [positions, setPositions] = useState({});
+  const [panEnabled, setPanEnabled] = useState(false);
   const hideTimer = useRef(null);
   const containerRef = useRef(null);
 
@@ -191,7 +202,7 @@ function NetworkPanel() {
   }, [pos]);
 
   return (
-    <div ref={containerRef} className="relative aspect-[16/10] overflow-hidden bg-paper-dark" onPointerLeave={handleLeave}>
+    <div ref={containerRef} className="network-map relative aspect-[16/10] overflow-hidden bg-paper-dark" onPointerLeave={handleLeave}>
       <MapContainer
         center={CENTER}
         zoom={12}
@@ -207,10 +218,25 @@ function NetworkPanel() {
         <TileLayer url="https://tile.openstreetmap.org/{z}/{x}/{y}.png" />
         <FitToHubs hubs={hubs} />
         <PositionTracker hubs={hubs} onPositions={setPositions} />
+        <DragToggle enabled={panEnabled} />
         {hubs.map((hub) => (
           <HubMarker key={hub.hubId} hub={hub} onEnter={handleEnter} onLeave={handleLeave} />
         ))}
       </MapContainer>
+
+      <button
+        type="button"
+        onClick={() => setPanEnabled((v) => !v)}
+        aria-pressed={panEnabled}
+        aria-label={panEnabled ? 'Turn off map panning' : 'Turn on map panning to reposition it'}
+        title={panEnabled ? 'Panning on' : 'Pan the map'}
+        className={`absolute left-[10px] z-[450] grid size-[30px] place-items-center rounded-[2px] border shadow-sm transition-colors ${
+          panEnabled ? 'border-ink bg-ink text-white' : 'border-black/20 bg-white text-ink hover:bg-black/5'
+        }`}
+        style={{ top: 124 }}
+      >
+        <Move size={15} />
+      </button>
 
       {loading && (
         <div className="pointer-events-none absolute inset-0 z-[500] grid place-items-center bg-paper-dark">
