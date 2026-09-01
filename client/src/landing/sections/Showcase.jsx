@@ -230,10 +230,10 @@ function NetworkPanel() {
         aria-pressed={panEnabled}
         aria-label={panEnabled ? 'Turn off map panning' : 'Turn on map panning to reposition it'}
         title={panEnabled ? 'Panning on' : 'Pan the map'}
-        className={`absolute left-[10px] z-[450] grid size-[30px] place-items-center rounded-[2px] border shadow-sm transition-colors ${
+        className={`absolute left-[12px] z-[450] grid size-[30px] place-items-center rounded-[2px] border shadow-sm transition-colors ${
           panEnabled ? 'border-ink bg-ink text-white' : 'border-black/20 bg-white text-ink hover:bg-black/5'
         }`}
-        style={{ top: 124 }}
+        style={{ top: 132 }}
       >
         <Move size={15} />
       </button>
