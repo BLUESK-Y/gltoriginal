@@ -1,7 +1,8 @@
 import 'leaflet/dist/leaflet.css';
 
 import L from 'leaflet';
-import { useEffect } from 'react';
+import { Move } from 'lucide-react';
+import { useEffect, useState } from 'react';
 import { MapContainer, Marker, TileLayer, useMap } from 'react-leaflet';
 
 function pinIcon(status, selected) {
@@ -22,6 +23,15 @@ function pinIcon(status, selected) {
   });
 }
 
+function DragToggle({ enabled }) {
+  const map = useMap();
+  useEffect(() => {
+    if (enabled) map.dragging.enable();
+    else map.dragging.disable();
+  }, [enabled, map]);
+  return null;
+}
+
 function FitToHubs({ hubs }) {
   const map = useMap();
   useEffect(() => {
@@ -35,18 +45,22 @@ function FitToHubs({ hubs }) {
 }
 
 export default function MapView({ hubs, selectedHubId, onSelect }) {
+  const [panEnabled, setPanEnabled] = useState(false);
+
   return (
     <div className="mapwrap">
       <MapContainer
         center={[8.48, 76.95]}
         zoom={12}
-        zoomControl={false}
+        zoomControl={true}
+        dragging={false}
         scrollWheelZoom={false}
         className="img-mono"
         style={{ height: 470, width: '100%' }}
       >
         <TileLayer url="https://tile.openstreetmap.org/{z}/{x}/{y}.png" />
         <FitToHubs hubs={hubs} />
+        <DragToggle enabled={panEnabled} />
         {hubs.map((h) => (
           <Marker
             key={h.hubId}
@@ -56,6 +70,20 @@ export default function MapView({ hubs, selectedHubId, onSelect }) {
           />
         ))}
       </MapContainer>
+
+      <button
+        type="button"
+        onClick={() => setPanEnabled((v) => !v)}
+        aria-pressed={panEnabled}
+        aria-label={panEnabled ? 'Turn off map panning' : 'Turn on map panning to reposition it'}
+        title={panEnabled ? 'Panning on' : 'Pan the map'}
+        className={`absolute left-[12px] z-[450] grid size-[30px] place-items-center rounded-[2px] border shadow-sm transition-colors ${
+          panEnabled ? 'border-black bg-black text-white' : 'border-black/20 bg-white text-ink hover:bg-black/5'
+        }`}
+        style={{ top: 82 }}
+      >
+        <Move size={15} />
+      </button>
     </div>
   );
 }
