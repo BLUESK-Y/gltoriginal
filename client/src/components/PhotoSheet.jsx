@@ -1,6 +1,13 @@
 import ShelfArt from "./ShelfArt.jsx";
-import { fmtShort } from "../utils/format.js";
+import { fmtShort, hubNumber } from "../utils/format.js";
 import { captures } from "../utils/captures.js";
+
+function fmtTime12(time) {
+  const [h, m] = time.split(":").map(Number);
+  const period = h >= 12 ? "PM" : "AM";
+  const h12 = h % 12 || 12;
+  return `${h12}:${String(m).padStart(2, "0")} ${period}`;
+}
 
 export default function PhotoSheet({ hubs, onOpen }) {
   if (!hubs.length) {
@@ -14,7 +21,7 @@ export default function PhotoSheet({ hubs, onOpen }) {
           return (
             <div key={s.hubId} className="tile none">
               <div className="im" />
-              <div className="cp"><b>{s.name}</b><span>{s.hubId} · {s.area.toUpperCase()}</span></div>
+              <div className="cp"><b>{s.name}</b></div>
             </div>
           );
         }
@@ -24,9 +31,14 @@ export default function PhotoSheet({ hubs, onOpen }) {
           <button key={s.hubId} className="tile" onClick={() => onOpen(s.hubId, caps.length - 1)}>
             <div className="im">
               <ShelfArt seed={c.seed} />
-              <div className="mini">LAT {s.lat.toFixed(4)} · LNG {s.lng.toFixed(4)}<br />{fmtShort(c.date).toUpperCase()} · {c.time}</div>
+              <span className="hubtag">HUB - {String(hubNumber(s.hubId)).padStart(3, "0")}</span>
+              <div className="mini">
+                <span>Time - {fmtTime12(c.time)}</span>
+                <span>Date - {fmtShort(c.date)}</span>
+                <span>Location - {s.area}</span>
+              </div>
             </div>
-            <div className="cp"><b>{s.name}</b><span>{caps.length} CAPTURE{caps.length > 1 ? "S" : ""} · {s.area.toUpperCase()}</span></div>
+            <div className="cp"><b>{s.name}</b></div>
           </button>
         );
       })}

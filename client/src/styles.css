@@ -185,15 +185,16 @@ tbody tr:hover{background:#14141A}
 #toast.on{opacity:1;transform:translate(-50%,0)}
 
 /* ---------- photo sheet + lightbox ---------- */
-.sheet{display:grid;grid-template-columns:repeat(auto-fill,minmax(168px,1fr));gap:12px}
-.tile{border:1px solid var(--line-soft);border-radius:9px;overflow:hidden;background:var(--panel);cursor:zoom-in;text-align:left;padding:0;transition:border-color .13s,transform .13s}
+.sheet{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:16px}
+.tile{border:1px solid var(--line-soft);border-radius:12px;overflow:hidden;background:var(--panel);cursor:zoom-in;text-align:center;padding:0;transition:border-color .13s,transform .13s}
 .tile:hover{border-color:#3A3A45;transform:translateY(-2px)}
 .tile .im{position:relative;aspect-ratio:4/3;background:#0C0C10}
 .tile .im svg{position:absolute;inset:0;width:100%;height:100%}
-.tile .mini{position:absolute;left:5px;right:5px;bottom:5px;background:rgba(0,0,0,.74);border-radius:3px;padding:3px 5px;font-family:var(--mono);font-size:7.5px;line-height:1.5;color:var(--verify);letter-spacing:.02em}
-.tile .cp{padding:9px 11px}
-.tile .cp b{font-size:12px;font-weight:700;display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.tile .cp span{font-family:var(--mono);font-size:9.5px;color:var(--dim);letter-spacing:.06em}
+.tile .hubtag{position:absolute;top:8px;right:8px;background:rgba(0,0,0,.6);border-radius:5px;padding:3px 8px;font-family:var(--mono);font-size:9.5px;letter-spacing:.08em;color:var(--text)}
+.tile .mini{position:absolute;left:0;right:0;bottom:0;display:flex;flex-direction:column;gap:2px;padding:26px 12px 10px;background:linear-gradient(to top,rgba(0,0,0,.85),rgba(0,0,0,.4) 60%,transparent);text-align:left}
+.tile .mini span{font-size:11px;font-weight:600;color:var(--text);letter-spacing:.01em}
+.tile .cp{padding:12px 11px}
+.tile .cp b{font-size:15px;font-weight:800;display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .tile.none .im{display:grid;place-items:center}
 .tile.none .im:after{content:"AWAITING AUDIT";font-family:var(--mono);font-size:9.5px;letter-spacing:.14em;color:var(--dim)}
 
