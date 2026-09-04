@@ -8,13 +8,23 @@ export function DashboardShowcase() {
         Active hubs, audit photos and reports — one login, updated through the cycle.
       </p>
 
-      <div className="mx-auto mt-12 max-w-5xl overflow-hidden border border-rule bg-ink">
-        <img
-          src="/assets/dashboard-photos-v2.png"
-          alt="The GLT client dashboard's Photos view, showing audit photos captured at every hub."
-          className="w-full"
-          loading="lazy"
-        />
+      {/* The screenshot sits in a thin ink bezel so its dark edges read as an
+          intentional device frame rather than a hard crop on the paper ground. */}
+      <div className="mx-auto mt-12 max-w-5xl rounded-2xl bg-ink p-2 shadow-[0_28px_70px_-24px_rgba(0,0,0,0.5)] md:p-2.5">
+        <div className="relative overflow-hidden rounded-xl">
+          <img
+            src="/assets/dashboard-photos-v3.png"
+            alt="The GLT client dashboard's Photos view, showing audit photos captured at every hub."
+            className="w-full"
+            loading="lazy"
+          />
+          {/* The screenshot is cropped mid-row — fading it into the bezel reads
+              as "there's more below" instead of a hard chop. */}
+          <div
+            className="pointer-events-none absolute inset-x-0 bottom-0 h-20 bg-gradient-to-t from-ink to-transparent"
+            aria-hidden="true"
+          />
+        </div>
       </div>
     </section>
   );
