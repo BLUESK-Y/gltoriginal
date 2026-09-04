@@ -332,8 +332,8 @@ export function CampaignEstimator() {
 
                   <div className="rounded-lg border border-white/10 bg-white/5 p-3">
                     <p className="text-[10px] tracking-[0.18em] text-white/50 uppercase">Rate per store</p>
-                    <p className="mt-1 text-[19px] leading-snug font-bold tracking-[-0.01em] text-paper">
-                      {inr(quote.ratePerDay)}/day × {quote.days} days = {inr(quote.ratePerHub)}/store
+                    <p className="mt-1 text-[26px] leading-tight font-bold tracking-[-0.01em] text-paper">
+                      {inr(quote.ratePerHub)}/store
                     </p>
                   </div>
 
