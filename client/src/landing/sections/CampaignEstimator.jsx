@@ -329,10 +329,18 @@ export function CampaignEstimator() {
                   </div>
 
                   <p className="mt-3 mb-1 text-[10px] tracking-[0.18em] text-white/50 uppercase">How this is calculated</p>
-                  <div>
+
+                  <div className="rounded-lg border border-white/10 bg-white/5 p-3">
+                    <p className="text-[10px] tracking-[0.18em] text-white/50 uppercase">Rate per store</p>
+                    <p className="accent-serif mt-0.5 text-[28px] leading-tight text-paper">
+                      {inr(quote.ratePerDay)}/day × {quote.days} days = {inr(quote.ratePerHub)}/store
+                    </p>
+                  </div>
+
+                  <div className="mt-2">
                     <div className="flex items-center justify-between border-b border-white/10 py-1.5 text-sm">
                       <span className="text-[11px] tracking-[0.04em] text-white/60">
-                        {quote.hubs} hubs × {quote.days} days × {inr(quote.ratePerDay)}/day
+                        {inr(quote.ratePerHub)}/store × {quote.hubs} stores
                       </span>
                       <span className="text-[12px] font-bold">{inr(quote.base)}</span>
                     </div>
@@ -350,11 +358,11 @@ export function CampaignEstimator() {
                     </div>
                   </div>
 
-                  <div className="mt-3 rounded-lg border border-white/10 bg-white/5 p-3">
-                    <p className="text-[10px] tracking-[0.18em] text-white/50 uppercase">Estimated total</p>
-                    <p className="accent-serif mt-0.5 text-[26px] leading-tight text-paper">{inr(quote.total)}</p>
-                    <p className="mt-0.5 text-[10px] text-white/40">Excludes GST</p>
+                  <div className="mt-3 flex items-center justify-between border-t border-white/10 pt-2">
+                    <span className="text-[10px] tracking-[0.18em] text-white/50 uppercase">Estimated total</span>
+                    <span className="text-[16px] font-bold text-paper">{inr(quote.total)}</span>
                   </div>
+                  <p className="mt-0.5 text-[10px] text-white/40">Excludes GST</p>
 
                   <ul className="mt-2 space-y-1">
                     {quote.includes.map((item) => (
